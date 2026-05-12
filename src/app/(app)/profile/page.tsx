@@ -60,7 +60,7 @@ function ProfileContent() {
   ];
 
   return (
-    <div>
+    <div className="anim-page">
       <p className="label" style={{ marginBottom: "4px" }}>TU CUENTA</p>
       <h1 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 900, lineHeight: 1.1, marginBottom: "4px" }}>
         Tu <span className="serif-italic">perfil</span> 👋
@@ -70,7 +70,7 @@ function ProfileContent() {
       </p>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+        <div className="profile-grid">
 
           {/* Left column */}
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>

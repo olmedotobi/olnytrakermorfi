@@ -131,6 +131,47 @@ p { margin: 0; }
   background-clip: text;
 }
 
+/* ── Animaciones ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.anim-page    { animation: fadeInUp 0.38s ease both; }
+.anim-1       { animation: fadeInUp 0.38s 0.04s ease both; }
+.anim-2       { animation: fadeInUp 0.38s 0.08s ease both; }
+.anim-3       { animation: fadeInUp 0.38s 0.12s ease both; }
+.anim-4       { animation: fadeInUp 0.38s 0.16s ease both; }
+.anim-5       { animation: fadeInUp 0.38s 0.20s ease both; }
+.anim-scale   { animation: scaleIn  0.32s ease both; }
+
+/* ── Grids responsive ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
 /* ── Top bar ── */
 .app-topbar {
   background: var(--bg-card);
@@ -210,7 +251,7 @@ p { margin: 0; }
 
   /* Contenido con espacio para el bottom nav */
   .app-main {
-    padding: 16px 16px 100px;
+    padding: 16px 14px 100px;
   }
 
   /* Bottom nav visible */
@@ -245,5 +286,27 @@ p { margin: 0; }
 
   .app-bottomnav-item.active {
     color: var(--salmon);
+  }
+
+  /* Grids responsive */
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tipografía mobile */
+  .card {
+    border-radius: 1rem;
   }
 }

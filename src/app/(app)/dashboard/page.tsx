@@ -26,6 +26,29 @@ const QUOTES = [
   "Un paso a la vez, una comida a la vez.",
   "Tu cuerpo es tu proyecto más importante.",
   "Comer bien no es una restricción, es un regalo.",
+  "Los resultados son el eco de tus decisiones diarias.",
+  "No se trata de perfección, se trata de consistencia.",
+  "Cada día es una nueva oportunidad de empezar bien.",
+  "El cuerpo logra lo que la mente cree.",
+  "Tu salud de mañana depende de lo que hacés hoy.",
+  "Pequeños cambios crean grandes transformaciones.",
+  "La energía que ponés en tu cuerpo se refleja en tu vida.",
+  "Nutrir es un acto de amor propio.",
+  "Lo que se mide, mejora. Lo que se registra, cambia.",
+  "La rutina no es aburrida — es poder.",
+  "No rompas la cadena — un día a la vez.",
+  "Tu meta no se logra en un día, pero tampoco sin él.",
+  "Cada comida contada es un paso más cerca de tu objetivo.",
+  "La disciplina de hoy es la libertad de mañana.",
+  "Un déficit de calorías hoy es un paso hacia tu mejor versión.",
+  "El progreso real se construye en silencio, comida a comida.",
+  "Rendirse es fácil. Vos elegiste lo difícil. Por eso vas a llegar.",
+  "No necesitás motivación todos los días, necesitás hábitos.",
+  "Cada kilo es una historia de decisiones. Escribí la tuya.",
+  "El mejor momento para empezar fue ayer. El segundo mejor es ahora.",
+  "Comer bien es el respeto más profundo que podés darle a tu cuerpo.",
+  "La meta no te espera — te construye en el camino.",
+  "Un día malo no arruina el progreso. Rendirse sí.",
 ];
 const quote = QUOTES[new Date().getDate() % QUOTES.length];
 
@@ -113,14 +136,14 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div>
+    <div className="anim-page">
       {/* Header */}
       <p className="label" style={{ marginBottom: "6px", textTransform: "capitalize" }}>{todayLabel}</p>
-      <h1 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 900, lineHeight: 1.1, marginBottom: "8px" }}>
+      <h1 style={{ fontSize: "clamp(1.6rem, 3vw, 2.5rem)", fontWeight: 900, lineHeight: 1.1, marginBottom: "8px" }}>
         ¡Hola{firstName ? ", " : ""}
         {firstName && <span className="serif-italic">{firstName}</span>}! {over ? "🚨" : "👋"}
       </h1>
-      <p style={{ fontSize: "0.95rem", color: "var(--text-muted)", marginBottom: "24px" }}>
+      <p style={{ fontSize: "0.95rem", color: "var(--text-muted)", marginBottom: "20px" }}>
         Hoy llevás <strong style={{ color: "var(--text)" }}>{consumed} kcal</strong> de tu objetivo de {goals.calories}. Vas {goals.calories > 0 ? Math.round((consumed / goals.calories) * 100) : 0}% del día —{" "}
         {over ? "límite alcanzado 🚨" : "vamos bien 🌱"}
       </p>
@@ -132,9 +155,9 @@ export default function DashboardPage() {
       )}
 
       {/* Stat cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "24px" }}>
+      <div className="stat-grid">
         {STAT_COLORS.map((s, i) => (
-          <div key={s.label} className="card" style={{ padding: "20px 18px", background: s.bg, borderColor: "transparent" }}>
+          <div key={s.label} className={`card anim-${i + 1}`} style={{ padding: "18px 16px", background: s.bg, borderColor: "transparent" }}>
             <p className="label" style={{ color: s.color, marginBottom: "10px" }}>{s.icon} {s.label}</p>
             <p style={{ fontSize: "2.2rem", fontWeight: 900, lineHeight: 1, color: "var(--text)" }}>
               {typeof statValues[i] === "number" && s.unit === "kg"
@@ -148,7 +171,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Main 3-column grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr 1fr", gap: "16px", marginBottom: "24px" }}>
+      <div className="main-grid">
 
         {/* Col 1 — Balance */}
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>

@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   title: "OnlyTracker Morfi",
   description: "Tu tracker nutricional",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
