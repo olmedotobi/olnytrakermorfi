@@ -9,7 +9,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
       <AppNavbar userName={session.user.name ?? undefined} />
-      <main style={{ maxWidth: "1400px", margin: "0 auto", padding: "28px 20px" }}>
+      <main className="app-main">
         {children}
       </main>
     </div>

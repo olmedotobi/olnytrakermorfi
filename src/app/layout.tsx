@@ -20,6 +20,12 @@ const lora = Lora({
 export const metadata: Metadata = {
   title: "OnlyTracker Morfi",
   description: "Tu tracker nutricional",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "OnlyTracker",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
