@@ -66,7 +66,7 @@ export default function ThemePicker() {
                 }}>
                   <div style={{ display: "flex", gap: "3px" }}>
                     {p.swatches.map((color, i) => (
-                      <div key={i} style={{ width: "11px", height: "11px", borderRadius: "50%", background: color, flexShrink: 0 }} />
+                      <div key={i} style={{ width: "11px", height: "11px", borderRadius: "50%", background: color, flexShrink: 0, boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.12)" }} />
                     ))}
                   </div>
                   <span style={{ fontSize: "0.65rem", fontWeight: 600, color: "var(--text-muted)", lineHeight: 1 }}>

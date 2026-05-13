@@ -1,4 +1,4 @@
-export type PaletteId = 'almendra' | 'lavanda' | 'salvia' | 'niebla' | 'rosa' | 'atardecer' | 'oceano' | 'caramelo';
+export type PaletteId = 'almendra' | 'lavanda' | 'salvia' | 'niebla' | 'rosa' | 'atardecer' | 'oceano' | 'caramelo' | 'blanco' | 'negro';
 export type Mode = 'light' | 'dark';
 type Vars = Record<string, string>;
 
@@ -78,6 +78,18 @@ export const PALETTES: Palette[] = [
     swatches: ['#C47A3A', '#A05A1A', '#E8B874'],
     light: { ...LS, '--bg':'#FAF5EE','--bg-card':'#FFFCF8','--bg-input':'#F2E8D8','--border':'#E4D4BE','--text':'#1E1408','--text-muted':'#987850','--grad-start':'#C47A3A','--grad-end':'#A05A1A','--banner-start':'#FEF0D8','--banner-end':'#FEEAC8' },
     dark:  { ...DS, '--bg':'#180E06','--bg-card':'#22160A','--bg-input':'#2C1C0E','--border':'#3C2C14','--text':'#FFF5E0','--text-muted':'#907040','--grad-start':'#D49050','--grad-end':'#B86C30','--banner-start':'#28180A','--banner-end':'#342010' },
+  },
+  {
+    id: 'blanco', name: 'Blanco',
+    swatches: ['#FFFFFF', '#E0E0E0', '#0A0A0A'],
+    light: { ...LS, '--bg':'#FFFFFF','--bg-card':'#FAFAFA','--bg-input':'#F2F2F2','--border':'#E2E2E2','--text':'#0A0A0A','--text-muted':'#757575','--grad-start':'#E8704A','--grad-end':'#7C6DC7','--banner-start':'#FEF0E9','--banner-end':'#EFECF8' },
+    dark:  { ...LS, '--bg':'#FFFFFF','--bg-card':'#FAFAFA','--bg-input':'#F2F2F2','--border':'#E2E2E2','--text':'#0A0A0A','--text-muted':'#757575','--grad-start':'#E8704A','--grad-end':'#7C6DC7','--banner-start':'#FEF0E9','--banner-end':'#EFECF8' },
+  },
+  {
+    id: 'negro', name: 'Negro',
+    swatches: ['#000000', '#2A2A2A', '#FFFFFF'],
+    light: { ...DS, '--bg':'#000000','--bg-card':'#111111','--bg-input':'#1C1C1C','--border':'#2C2C2C','--text':'#FFFFFF','--text-muted':'#909090','--grad-start':'#F0886A','--grad-end':'#9E90D9','--banner-start':'rgba(232,112,74,0.12)','--banner-end':'rgba(124,109,199,0.12)' },
+    dark:  { ...DS, '--bg':'#000000','--bg-card':'#111111','--bg-input':'#1C1C1C','--border':'#2C2C2C','--text':'#FFFFFF','--text-muted':'#909090','--grad-start':'#F0886A','--grad-end':'#9E90D9','--banner-start':'rgba(232,112,74,0.12)','--banner-end':'rgba(124,109,199,0.12)' },
   },
 ];
 
