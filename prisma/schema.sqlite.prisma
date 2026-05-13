@@ -1,0 +1,83 @@
+// Schema para la version de escritorio (SQLite local)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id @default(cuid())
+  email         String        @unique
+  name          String
+  password      String
+  createdAt     DateTime      @default(now())
+  profile       Profile?
+  foodEntries   FoodEntry[]
+  weightEntries WeightEntry[]
+  dayNotes      DayNote[]
+  customFoods   CustomFood[]
+}
+
+model Profile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  height        Float
+  weight        Float
+  age           Int
+  gender        String
+  targetWeight  Float
+  activityLevel String
+  updatedAt     DateTime @updatedAt
+}
+
+model FoodEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String
+  foodName  String
+  grams     Float
+  calories  Float
+  protein   Float
+  carbs     Float
+  fat       Float
+  mealType  String
+  createdAt DateTime @default(now())
+}
+
+model WeightEntry {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date   String
+  weight Float
+
+  @@unique([userId, date])
+}
+
+model DayNote {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String
+  note      String
+
+  @@unique([userId, date])
+}
+
+model CustomFood {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  calories  Float
+  protein   Float
+  carbs     Float
+  fat       Float
+  category  String   @default("Personalizado")
+  createdAt DateTime @default(now())
+}

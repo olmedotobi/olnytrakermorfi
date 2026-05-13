@@ -40,6 +40,10 @@ yarn-error.log*
 prisma/dev.db
 prisma/*.db
 
+# desktop build output
+dist-desktop/
+desktop/*.db
+
 # claude memory
 .claude/
 

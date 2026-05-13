@@ -2,11 +2,15 @@
   "name": "mi-web-profesional",
   "version": "0.1.0",
   "private": true,
+  "main": "desktop/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "desktop:build": "prisma generate --schema prisma/schema.sqlite.prisma && next build",
+    "desktop": "electron .",
+    "desktop:dist": "npm run desktop:build && electron-builder --config desktop/builder.json"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -40,6 +44,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
