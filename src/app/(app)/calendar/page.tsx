@@ -117,50 +117,50 @@ export default function CalendarPage() {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "24px", flexWrap: "wrap", gap: "12px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px", flexWrap: "wrap", gap: "10px" }}>
         <div>
           <p className="label" style={{ marginBottom: "4px" }}>TU HISTORIAL</p>
-          <h1 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 900, lineHeight: 1.1, marginBottom: "4px" }}>
-            Calendario de <span className="serif-italic">progreso</span> 📅
+          <h1 style={{ fontSize: "clamp(1.4rem,3vw,2.2rem)", fontWeight: 900, lineHeight: 1.1, marginBottom: "4px" }}>
+            Calendario de <span className="serif-italic">progreso</span>
           </h1>
-          <p style={{ fontSize: "0.9rem", color: "var(--text-muted)" }}>
-            Mirá cómo te fue día a día — cada cuadrito cuenta una historia ✨
+          <p style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+            Tocá cualquier día para ver el detalle ✨
           </p>
         </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+        <div className="cal-legend" style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
           {[
             { dot: "var(--sky)",     label: "bajo objetivo (<80%)" },
             { dot: "var(--mint)",    label: "en meta (80-105%)" },
             { dot: "var(--warning)", label: "cerca del límite" },
             { dot: "var(--danger)",  label: "sobre el límite" },
           ].map(l => (
-            <div key={l.label} style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.75rem", color: "var(--text-muted)" }}>
-              <div style={{ width: "9px", height: "9px", borderRadius: "50%", background: l.dot, flexShrink: 0 }} />
+            <div key={l.label} style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.72rem", color: "var(--text-muted)" }}>
+              <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: l.dot, flexShrink: 0 }} />
               {l.label}
             </div>
           ))}
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "16px" }}>
+      <div className="cal-grid">
 
         {/* Calendar grid */}
-        <div className="card" style={{ padding: "24px" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
+        <div className="card" style={{ padding: "16px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" }}>
             <button className="btn-ghost" onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} style={{ fontSize: "1.1rem" }}>◀</button>
-            <h2 style={{ fontSize: "1.1rem", fontWeight: 700, textTransform: "capitalize" }}>
-              {format(currentMonth, "MMMM", { locale: es }).charAt(0).toUpperCase()}{format(currentMonth, "MMMM", { locale: es }).slice(1)} De {format(currentMonth, "yyyy")}
+            <h2 style={{ fontSize: "1rem", fontWeight: 700, textTransform: "capitalize" }}>
+              {format(currentMonth, "MMMM", { locale: es }).charAt(0).toUpperCase()}{format(currentMonth, "MMMM", { locale: es }).slice(1)} {format(currentMonth, "yyyy")}
             </h2>
             <button className="btn-ghost" onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} style={{ fontSize: "1.1rem" }}>▶</button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: "6px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: "4px" }}>
             {weekDays.map(d => (
-              <div key={d} style={{ textAlign: "center", fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.06em", color: "var(--text-muted)", padding: "6px 0" }}>{d}</div>
+              <div key={d} style={{ textAlign: "center", fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.04em", color: "var(--text-muted)", padding: "4px 0" }}>{d}</div>
             ))}
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "3px" }}>
             {Array.from({ length: startDayOfWeek }).map((_, i) => <div key={`e-${i}`} />)}
             {days.map(day => {
               const dateStr = format(day, "yyyy-MM-dd");
@@ -171,30 +171,24 @@ export default function CalendarPage() {
               const hasNote = noteIndicators.has(dateStr);
 
               return (
-                <button key={dateStr} onClick={() => loadDay(dateStr)} style={{
-                  position: "relative",
-                  display: "flex", flexDirection: "column", justifyContent: "space-between",
-                  padding: "8px",
-                  minHeight: "68px",
-                  borderRadius: "0.875rem",
-                  border: isSelected ? "2px solid var(--text)" : todayDay ? "2px solid var(--text)" : "2px solid transparent",
-                  background: isSelected ? "var(--text)" : pct !== null ? accent.bg : "transparent",
-                  cursor: "pointer",
-                  fontFamily: "var(--font-outfit, sans-serif)",
-                  transition: "background 0.1s",
-                }}>
-                  {hasNote && <span style={{ position: "absolute", top: "3px", right: "3px", fontSize: "8px" }}>📝</span>}
-                  <span style={{ fontSize: "0.88rem", fontWeight: 700, color: isSelected ? "var(--bg-card)" : "var(--text)", alignSelf: "flex-start" }}>
+                <button key={dateStr} onClick={() => loadDay(dateStr)}
+                  className="cal-day-btn"
+                  style={{
+                    border: isSelected ? "2px solid var(--text)" : todayDay ? "2px solid var(--text)" : "2px solid transparent",
+                    background: isSelected ? "var(--text)" : pct !== null ? accent.bg : "transparent",
+                  }}>
+                  {hasNote && <span style={{ position: "absolute", top: "2px", right: "2px", fontSize: "7px" }}>📝</span>}
+                  <span className="cal-day-num" style={{ color: isSelected ? "var(--bg-card)" : "var(--text)" }}>
                     {day.getDate()}
                   </span>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", width: "100%" }}>
                     {pct !== null && (
-                      <span style={{ fontSize: "0.62rem", fontWeight: 700, color: isSelected ? "rgba(255,255,255,0.7)" : accent.text }}>
+                      <span className="cal-day-pct" style={{ color: isSelected ? "rgba(255,255,255,0.7)" : accent.text }}>
                         {pct}%
                       </span>
                     )}
                     {pct !== null && (
-                      <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: isSelected ? "rgba(255,255,255,0.5)" : accent.dot }} />
+                      <div className="cal-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: isSelected ? "rgba(255,255,255,0.5)" : accent.dot, flexShrink: 0 }} />
                     )}
                   </div>
                 </button>
@@ -204,7 +198,7 @@ export default function CalendarPage() {
         </div>
 
         {/* Day detail panel */}
-        <div className="card" style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "16px", minHeight: "400px" }}>
+        <div className="card" style={{ padding: "20px", display: "flex", flexDirection: "column", gap: "14px" }}>
           {selectedDay ? (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

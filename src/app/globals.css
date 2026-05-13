@@ -238,6 +238,34 @@ p { margin: 0; }
   /* visible as side panel on desktop */
 }
 
+/* ── Calendar ── */
+.cal-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+.cal-day-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  min-height: 68px;
+  border-radius: 0.875rem;
+  cursor: pointer;
+  font-family: var(--font-outfit, sans-serif);
+  transition: background 0.1s;
+}
+.cal-day-num {
+  font-size: 0.88rem;
+  font-weight: 700;
+  align-self: flex-start;
+}
+.cal-day-pct {
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
 /* ── Bottom nav (oculto en desktop) ── */
 .app-bottomnav {
   display: none;
@@ -323,6 +351,29 @@ p { margin: 0; }
   /* En mobile la lista de alimentos va arriba, el detalle abajo */
   .foods-detail {
     order: 2;
+  }
+
+  /* Calendar mobile */
+  .cal-grid {
+    grid-template-columns: 1fr;
+  }
+  .cal-legend {
+    display: none !important;
+  }
+  .cal-day-btn {
+    min-height: 46px;
+    padding: 5px 4px;
+    border-radius: 0.625rem;
+  }
+  .cal-day-num {
+    font-size: 0.78rem;
+  }
+  .cal-day-pct {
+    font-size: 0.5rem;
+  }
+  .cal-dot {
+    width: 5px !important;
+    height: 5px !important;
   }
 
   /* Cards */
