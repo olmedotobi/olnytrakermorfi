@@ -193,8 +193,8 @@ p { margin: 0; }
 .app-logo {
   text-decoration: none;
   display: flex;
-  align-items: baseline;
-  gap: 5px;
+  align-items: center;
+  gap: 6px;
 }
 .app-topbar-links {
   display: flex;
