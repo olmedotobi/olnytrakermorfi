@@ -29,12 +29,12 @@ export default function RegisterPage() {
 
   return (
     <div style={{ width: "100%", maxWidth: "400px" }}>
-      <div style={{ textAlign: "center", marginBottom: "28px" }}>
-        <img src="/icon.svg" alt="logo" style={{ width: 64, height: 64, borderRadius: "16px", marginBottom: "14px" }} />
-        <p style={{ fontSize: "1.8rem", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, color: "var(--text)" }}>
+      <div style={{ textAlign: "center", marginBottom: "32px" }}>
+        <img src="/icon.svg" alt="logo" style={{ width: 92, height: 92, borderRadius: "22px", display: "block", margin: "0 auto 18px" }} />
+        <p style={{ fontSize: "1.9rem", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1, color: "var(--text)" }}>
           Onlytracker <span className="serif-italic" style={{ fontWeight: 400 }}>Morfi</span>
         </p>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginTop: "6px" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginTop: "7px" }}>
           tu tracker nutricional
         </p>
       </div>
