@@ -1,4 +1,4 @@
-export type PaletteId = 'almendra' | 'lavanda' | 'salvia' | 'niebla' | 'rosa' | 'atardecer' | 'oceano' | 'caramelo' | 'blanco' | 'negro' | 'esmeralda' | 'indigo';
+export type PaletteId = 'almendra' | 'lavanda' | 'salvia' | 'niebla' | 'rosa' | 'atardecer' | 'oceano' | 'caramelo' | 'blanco' | 'negro' | 'esmeralda' | 'neon';
 export type Mode = 'light' | 'dark';
 type Vars = Record<string, string>;
 
@@ -98,10 +98,34 @@ export const PALETTES: Palette[] = [
     dark:  { ...DS, '--bg':'#041410','--bg-card':'#081E18','--bg-input':'#0E2820','--border':'#163828','--text':'#E0FAF2','--text-muted':'#48907A','--grad-start':'#2AC48F','--grad-end':'#1A8AB4','--banner-start':'#081E14','--banner-end':'#082028' },
   },
   {
-    id: 'indigo', name: 'Índigo',
-    swatches: ['#4A5EC4', '#2A3E9E', '#8A9AE0'],
-    light: { ...LS, '--bg':'#F0F2FA','--bg-card':'#F8F9FF','--bg-input':'#E4E8F5','--border':'#CDD4ED','--text':'#0A0E24','--text-muted':'#606888','--grad-start':'#4A5EC4','--grad-end':'#7A4EC4','--banner-start':'#DDE2F8','--banner-end':'#EAD8F8' },
-    dark:  { ...DS, '--bg':'#080A18','--bg-card':'#0E1228','--bg-input':'#141A34','--border':'#1E2844','--text':'#E8EAFF','--text-muted':'#6870A0','--grad-start':'#6A7ED4','--grad-end':'#9A6ED4','--banner-start':'#0E1430','--banner-end':'#180E30' },
+    id: 'neon', name: 'Neón',
+    swatches: ['#FF2D9B', '#00FFCC', '#BF5FFF'],
+    light: {
+      '--salmon': '#CC0088', '--salmon-bg': 'rgba(204,0,136,0.10)',
+      '--mint': '#00A860', '--mint-bg': 'rgba(0,168,96,0.12)',
+      '--lavender': '#8800CC', '--lavender-bg': 'rgba(136,0,204,0.10)',
+      '--sky': '#0088CC', '--sky-bg': 'rgba(0,136,204,0.10)',
+      '--protein': '#8800CC', '--carbs': '#C89000', '--carbs-bg': 'rgba(200,144,0,0.10)',
+      '--fat': '#CC0088', '--fat-bg': 'rgba(204,0,136,0.10)',
+      '--warning': '#C89000', '--danger': '#EF4444', '--success': '#00A860',
+      '--bg': '#F8F0FF', '--bg-card': '#FFFFFF', '--bg-input': '#F0E4FF',
+      '--border': '#E0D0FF', '--text': '#1A0830', '--text-muted': '#7050A0',
+      '--grad-start': '#CC0088', '--grad-end': '#0088CC',
+      '--banner-start': '#F8E0FF', '--banner-end': '#D8F0FF',
+    },
+    dark: {
+      '--salmon': '#FF2D9B', '--salmon-bg': 'rgba(255,45,155,0.15)',
+      '--mint': '#00FF88', '--mint-bg': 'rgba(0,255,136,0.12)',
+      '--lavender': '#BF5FFF', '--lavender-bg': 'rgba(191,95,255,0.15)',
+      '--sky': '#00CFFF', '--sky-bg': 'rgba(0,207,255,0.12)',
+      '--protein': '#BF5FFF', '--carbs': '#FFD700', '--carbs-bg': 'rgba(255,215,0,0.12)',
+      '--fat': '#FF2D9B', '--fat-bg': 'rgba(255,45,155,0.14)',
+      '--warning': '#FFD700', '--danger': '#FF3366', '--success': '#00FF88',
+      '--bg': '#060608', '--bg-card': '#0E0A18', '--bg-input': '#18122A',
+      '--border': '#2A1A40', '--text': '#F0E8FF', '--text-muted': '#8060B0',
+      '--grad-start': '#FF2D9B', '--grad-end': '#00FFCC',
+      '--banner-start': 'rgba(255,45,155,0.12)', '--banner-end': 'rgba(0,255,204,0.08)',
+    },
   },
 ];
 
