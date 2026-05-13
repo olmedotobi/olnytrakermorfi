@@ -91,7 +91,12 @@ export default function LoginPage() {
               value={email} onChange={e => setEmail(e.target.value)} required />
           </label>
           <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            <span className="label">CONTRASEÑA</span>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span className="label">CONTRASEÑA</span>
+              <Link href="/forgot-password" style={{ fontSize: "0.75rem", color: "var(--text-muted)", textDecoration: "none", fontWeight: 500 }}>
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </div>
             <input className="input-base" type="password" placeholder="••••••••"
               value={password} onChange={e => setPassword(e.target.value)} required />
           </label>
