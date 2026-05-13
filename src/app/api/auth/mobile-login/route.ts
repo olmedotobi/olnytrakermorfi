@@ -8,7 +8,8 @@ export async function POST(req: NextRequest) {
   if (!email || !password) return NextResponse.json({ error: "Datos requeridos" }, { status: 400 });
 
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !user.password) return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
+  if (!user) return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
+  if (!user.password) return NextResponse.json({ error: "Esta cuenta usa Google. Usá 'Crear cuenta' para establecer una contraseña mobile." }, { status: 401 });
 
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
