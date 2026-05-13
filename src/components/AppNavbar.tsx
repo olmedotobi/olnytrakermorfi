@@ -2,13 +2,14 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, UtensilsCrossed, CalendarDays, User, LogOut } from "lucide-react";
+import { Home, UtensilsCrossed, CalendarDays, User, LogOut, Dumbbell } from "lucide-react";
 import ThemePicker from "@/components/ThemePicker";
 
 const NAV = [
   { href: "/dashboard", label: "Inicio",      icon: Home },
   { href: "/foods",     label: "Alimentos",   icon: UtensilsCrossed },
   { href: "/calendar",  label: "Calendario",  icon: CalendarDays },
+  { href: "/training",  label: "Entreno",     icon: Dumbbell },
   { href: "/profile",   label: "Perfil",      icon: User },
 ];
 

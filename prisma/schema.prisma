@@ -9,16 +9,18 @@ datasource db {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  email         String        @unique
-  name          String
-  password      String
-  createdAt     DateTime      @default(now())
-  profile       Profile?
-  foodEntries   FoodEntry[]
-  weightEntries WeightEntry[]
-  dayNotes      DayNote[]
-  customFoods   CustomFood[]
+  id              String           @id @default(cuid())
+  email           String           @unique
+  name            String
+  password        String
+  createdAt       DateTime         @default(now())
+  profile         Profile?
+  foodEntries     FoodEntry[]
+  weightEntries   WeightEntry[]
+  dayNotes        DayNote[]
+  customFoods     CustomFood[]
+  workoutSessions WorkoutSession[]
+  stepEntries     StepEntry[]
 }
 
 model Profile {
@@ -80,4 +82,27 @@ model CustomFood {
   fat       Float
   category  String   @default("Personalizado")
   createdAt DateTime @default(now())
+}
+
+model WorkoutSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      String
+  notes     String   @default("")
+  exercises Json     @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+}
+
+model StepEntry {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date   String
+  steps  Int    @default(0)
+
+  @@unique([userId, date])
 }

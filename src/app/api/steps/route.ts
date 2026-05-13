@@ -1,0 +1,30 @@
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
+import { prisma } from "@/lib/db";
+
+export async function GET(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user?.id) return NextResponse.json(null, { status: 401 });
+
+  const date = req.nextUrl.searchParams.get("date");
+  if (!date) return NextResponse.json(null, { status: 400 });
+
+  const entry = await prisma.stepEntry.findUnique({
+    where: { userId_date: { userId: session.user.id, date } },
+  });
+  return NextResponse.json(entry);
+}
+
+export async function POST(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user?.id) return NextResponse.json(null, { status: 401 });
+
+  const { date, steps } = await req.json();
+
+  const entry = await prisma.stepEntry.upsert({
+    where: { userId_date: { userId: session.user.id, date } },
+    create: { userId: session.user.id, date, steps: steps ?? 0 },
+    update: { steps: steps ?? 0 },
+  });
+  return NextResponse.json(entry);
+}
