@@ -39,7 +39,7 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      <div className="card" style={{ padding: "32px" }}>
+      <div className="card auth-card" style={{ padding: "32px" }}>
         <h2 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: "24px", color: "var(--text)" }}>Crear cuenta</h2>
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {FIELDS.map(field => (

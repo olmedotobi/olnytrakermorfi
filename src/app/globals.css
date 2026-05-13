@@ -313,13 +313,15 @@ p { margin: 0; }
     align-items: center;
     justify-content: center;
     gap: 3px;
-    padding: 10px 4px 8px;
+    padding: 10px 2px 8px;
     text-decoration: none;
     color: var(--text-muted);
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 500;
     font-family: var(--font-outfit, sans-serif);
     transition: color 0.12s;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .app-bottomnav-item.active {
@@ -396,5 +398,17 @@ p { margin: 0; }
   /* Stat cards más compactas */
   .stat-grid .card {
     padding: 14px 12px !important;
+  }
+
+  /* Auth pages — card padding más chico */
+  .auth-card {
+    padding: 24px !important;
+  }
+
+  /* Entrenamiento — sets más compactos */
+  .set-row-btn {
+    min-height: 40px !important;
+    min-width: 40px;
+    padding: 6px !important;
   }
 }

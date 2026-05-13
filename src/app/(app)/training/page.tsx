@@ -271,12 +271,13 @@ export default function TrainingPage() {
                 value={newExName}
                 onChange={e => setNewExName(e.target.value)}
                 onKeyDown={e => { if (e.key === "Enter") addExercise(); if (e.key === "Escape") setAddingEx(false); }}
+                style={{ flex: 1, minWidth: 0, width: "auto" }}
                 autoFocus
               />
-              <button className="btn-primary" style={{ padding: "10px 14px", whiteSpace: "nowrap" }} onClick={addExercise}>
+              <button className="btn-primary" style={{ padding: "10px 14px", flexShrink: 0 }} onClick={addExercise}>
                 <Plus size={15} />
               </button>
-              <button className="btn-ghost" onClick={() => { setAddingEx(false); setNewExName(""); }}>
+              <button className="btn-ghost" style={{ flexShrink: 0 }} onClick={() => { setAddingEx(false); setNewExName(""); }}>
                 <X size={15} />
               </button>
             </div>
@@ -297,7 +298,7 @@ export default function TrainingPage() {
                     className="input-base"
                     value={ex.name}
                     onChange={e => updateExName(ex.id, e.target.value)}
-                    style={{ fontWeight: 700, fontSize: "0.92rem", flex: 1 }}
+                    style={{ fontWeight: 700, fontSize: "0.92rem", flex: 1, minWidth: 0 }}
                   />
                   <button className="btn-ghost" onClick={() => removeExercise(ex.id)} style={{ color: "var(--danger)" }}>
                     <Trash2 size={15} />
@@ -333,7 +334,7 @@ export default function TrainingPage() {
                       onChange={e => updateSet(ex.id, si, "reps", parseInt(e.target.value) || 0)}
                       style={{ textAlign: "center", padding: "8px 6px" }}
                     />
-                    <button className="btn-ghost" onClick={() => removeSet(ex.id, si)} style={{ padding: "6px", color: "var(--text-muted)" }}>
+                    <button className="btn-ghost set-row-btn" onClick={() => removeSet(ex.id, si)} style={{ padding: "6px", color: "var(--text-muted)" }}>
                       <X size={13} />
                     </button>
                   </div>

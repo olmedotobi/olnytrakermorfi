@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
         </p>
       </div>
 
-      <div className="card" style={{ padding: "32px" }}>
+      <div className="card auth-card" style={{ padding: "32px" }}>
         {sent ? (
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: "2.5rem", marginBottom: "12px" }}>📬</div>

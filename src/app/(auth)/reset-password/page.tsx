@@ -42,7 +42,7 @@ function ResetPasswordForm() {
   };
 
   return (
-    <div className="card" style={{ padding: "32px" }}>
+    <div className="card auth-card" style={{ padding: "32px" }}>
       {done ? (
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: "2.5rem", marginBottom: "12px" }}>✅</div>
