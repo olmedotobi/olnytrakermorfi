@@ -1,5 +1,5 @@
 const { app, BrowserWindow, shell } = require("electron");
-const { spawn } = require("child_process");
+const { spawn, exec } = require("child_process");
 const path = require("path");
 const net = require("net");
 
@@ -11,16 +11,22 @@ const BIN_DIR = path.join(APP_ROOT, "node_modules", ".bin");
 
 let nextProcess = null;
 
-// Espera hasta que el puerto esté disponible
-function waitForPort(port, maxMs = 60000) {
+function killPort(port) {
+  return new Promise(resolve => {
+    if (!IS_WIN) return resolve();
+    exec(`for /f "tokens=5" %a in ('netstat -ano ^| findstr :${port} ^| findstr LISTENING') do @taskkill /F /PID %a 2>nul`, { shell: true }, () => resolve());
+  });
+}
+
+function waitForPort(port, maxMs = 90000) {
   return new Promise((resolve, reject) => {
     const deadline = Date.now() + maxMs;
     function attempt() {
       const sock = net.createConnection({ port, host: "127.0.0.1" });
       sock.on("connect", () => { sock.destroy(); resolve(); });
       sock.on("error", () => {
-        if (Date.now() > deadline) return reject(new Error("Tiempo de espera agotado"));
-        setTimeout(attempt, 700);
+        if (Date.now() > deadline) return reject(new Error("Tiempo de espera agotado esperando el servidor"));
+        setTimeout(attempt, 800);
       });
     }
     attempt();
@@ -28,6 +34,8 @@ function waitForPort(port, maxMs = 60000) {
 }
 
 async function startServer(dbPath) {
+  await killPort(PORT);
+
   const env = {
     ...process.env,
     DATABASE_URL: `file:${dbPath}`,
@@ -36,28 +44,30 @@ async function startServer(dbPath) {
     NODE_ENV: "production",
     PORT: String(PORT),
   };
+  delete env.ELECTRON_RUN_AS_NODE;
 
-  // Sincroniza el schema SQLite con la base de datos local
   await new Promise((resolve, reject) => {
     const prisma = spawn(
       path.join(BIN_DIR, `prisma${BIN_EXT}`),
       ["db", "push", "--schema", path.join(APP_ROOT, "prisma", "schema.sqlite.prisma"), "--skip-generate"],
-      { cwd: APP_ROOT, env, shell: true }
+      { cwd: APP_ROOT, env, shell: true, stdio: "pipe" }
     );
+    prisma.stdout?.on("data", d => process.stdout.write("[prisma] " + d));
+    prisma.stderr?.on("data", d => process.stderr.write("[prisma] " + d));
     prisma.on("close", code => {
       if (code === 0) resolve();
-      else reject(new Error(`Prisma terminó con código ${code}`));
+      else reject(new Error(`prisma db push falló (código ${code})`));
     });
     prisma.on("error", reject);
   });
 
-  // Inicia el servidor Next.js
   nextProcess = spawn(
     path.join(BIN_DIR, `next${BIN_EXT}`),
     ["start", "--port", String(PORT)],
-    { cwd: APP_ROOT, env, shell: true }
+    { cwd: APP_ROOT, env, shell: true, stdio: "pipe" }
   );
-
+  nextProcess.stdout?.on("data", d => process.stdout.write("[next] " + d));
+  nextProcess.stderr?.on("data", d => process.stderr.write("[next] " + d));
   nextProcess.on("error", err => console.error("Error servidor:", err));
 
   await waitForPort(PORT);
@@ -74,16 +84,12 @@ async function createWindow() {
     minHeight: 600,
     title: "OnlyTracker Morfi",
     backgroundColor: "#F9F6F1",
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-    },
+    webPreferences: { nodeIntegration: false, contextIsolation: true },
     show: false,
   });
 
   win.setMenuBarVisibility(false);
 
-  // Pantalla de carga
   win.loadURL(
     "data:text/html," +
     encodeURIComponent(`<!DOCTYPE html>
@@ -119,14 +125,14 @@ async function createWindow() {
 <html>
 <head><meta charset="utf-8"><style>
   body { background: #F9F6F1; height: 100vh; display: flex; align-items: center; justify-content: center; font-family: system-ui; color: #EF4444; padding: 24px; }
-  p { text-align: center; font-size: 0.95rem; }
+  p { text-align: center; font-size: 0.95rem; line-height: 1.6; }
+  code { background: rgba(239,68,68,0.08); padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; }
 </style></head>
-<body><p>Error al iniciar la app:<br><br>${String(err).replace(/</g,"&lt;")}</p></body>
+<body><p>Error al iniciar la app:<br><br><code>${String(err).replace(/</g, "&lt;")}</code></p></body>
 </html>`)
     );
   }
 
-  // Links externos se abren en el navegador del sistema
   win.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: "deny" };
@@ -136,10 +142,10 @@ async function createWindow() {
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
-  if (nextProcess) nextProcess.kill();
+  if (nextProcess) { nextProcess.kill(); nextProcess = null; }
   app.quit();
 });
 
 app.on("before-quit", () => {
-  if (nextProcess) nextProcess.kill();
+  if (nextProcess) { nextProcess.kill(); nextProcess = null; }
 });
