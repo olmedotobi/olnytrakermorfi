@@ -91,12 +91,7 @@ export default function LoginPage() {
               value={email} onChange={e => setEmail(e.target.value)} required />
           </label>
           <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span className="label">CONTRASEÑA</span>
-              <Link href="/forgot-password" style={{ fontSize: "0.75rem", color: "var(--text-muted)", textDecoration: "none", fontWeight: 500 }}>
-                ¿Olvidaste tu contraseña?
-              </Link>
-            </div>
+            <span className="label">CONTRASEÑA</span>
             <input className="input-base" type="password" placeholder="••••••••"
               value={password} onChange={e => setPassword(e.target.value)} required />
           </label>
@@ -105,7 +100,10 @@ export default function LoginPage() {
               {error}
             </p>
           )}
-          <button type="submit" className="btn-primary" disabled={loading} style={{ padding: "12px", marginTop: "4px" }}>
+          <Link href="/forgot-password" style={{ fontSize: "0.82rem", color: "var(--text-muted)", textDecoration: "none", fontWeight: 500, textAlign: "center" }}>
+            ¿Olvidaste tu contraseña?
+          </Link>
+          <button type="submit" className="btn-primary" disabled={loading} style={{ padding: "12px" }}>
             {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
