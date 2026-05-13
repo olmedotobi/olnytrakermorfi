@@ -1,4 +1,4 @@
-export type PaletteId = 'almendra' | 'lavanda' | 'salvia' | 'niebla' | 'rosa' | 'atardecer' | 'oceano' | 'caramelo' | 'blanco' | 'negro';
+export type PaletteId = 'almendra' | 'lavanda' | 'salvia' | 'niebla' | 'rosa' | 'atardecer' | 'oceano' | 'caramelo' | 'blanco' | 'negro' | 'esmeralda' | 'indigo';
 export type Mode = 'light' | 'dark';
 type Vars = Record<string, string>;
 
@@ -90,6 +90,18 @@ export const PALETTES: Palette[] = [
     swatches: ['#000000', '#2A2A2A', '#FFFFFF'],
     light: { ...DS, '--bg':'#000000','--bg-card':'#111111','--bg-input':'#1C1C1C','--border':'#2C2C2C','--text':'#FFFFFF','--text-muted':'#909090','--grad-start':'#F0886A','--grad-end':'#9E90D9','--banner-start':'rgba(232,112,74,0.12)','--banner-end':'rgba(124,109,199,0.12)' },
     dark:  { ...DS, '--bg':'#000000','--bg-card':'#111111','--bg-input':'#1C1C1C','--border':'#2C2C2C','--text':'#FFFFFF','--text-muted':'#909090','--grad-start':'#F0886A','--grad-end':'#9E90D9','--banner-start':'rgba(232,112,74,0.12)','--banner-end':'rgba(124,109,199,0.12)' },
+  },
+  {
+    id: 'esmeralda', name: 'Esmeralda',
+    swatches: ['#1A9E7A', '#0E7A5E', '#A0E8D0'],
+    light: { ...LS, '--bg':'#F0FAF7','--bg-card':'#FAFFFD','--bg-input':'#E0F5EE','--border':'#C4E8DA','--text':'#0A1E18','--text-muted':'#507A68','--grad-start':'#1A9E7A','--grad-end':'#0E6A9E','--banner-start':'#D8F5EC','--banner-end':'#D0EEF8' },
+    dark:  { ...DS, '--bg':'#041410','--bg-card':'#081E18','--bg-input':'#0E2820','--border':'#163828','--text':'#E0FAF2','--text-muted':'#48907A','--grad-start':'#2AC48F','--grad-end':'#1A8AB4','--banner-start':'#081E14','--banner-end':'#082028' },
+  },
+  {
+    id: 'indigo', name: 'Índigo',
+    swatches: ['#4A5EC4', '#2A3E9E', '#8A9AE0'],
+    light: { ...LS, '--bg':'#F0F2FA','--bg-card':'#F8F9FF','--bg-input':'#E4E8F5','--border':'#CDD4ED','--text':'#0A0E24','--text-muted':'#606888','--grad-start':'#4A5EC4','--grad-end':'#7A4EC4','--banner-start':'#DDE2F8','--banner-end':'#EAD8F8' },
+    dark:  { ...DS, '--bg':'#080A18','--bg-card':'#0E1228','--bg-input':'#141A34','--border':'#1E2844','--text':'#E8EAFF','--text-muted':'#6870A0','--grad-start':'#6A7ED4','--grad-end':'#9A6ED4','--banner-start':'#0E1430','--banner-end':'#180E30' },
   },
 ];
 
