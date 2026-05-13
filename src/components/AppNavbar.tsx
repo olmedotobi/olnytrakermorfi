@@ -21,8 +21,9 @@ export default function AppNavbar({ userName }: { userName?: string }) {
       <nav className="app-topbar">
         <div className="app-topbar-inner">
           <Link href="/dashboard" className="app-logo">
-            <span className="gradient-text" style={{ fontSize: "1.15rem", fontWeight: 900, letterSpacing: "-0.02em" }}>OnlyTracker</span>
-            <span style={{ fontSize: "0.78rem", fontWeight: 600, color: "var(--text-muted)" }}>Morfi</span>
+            <img src="/icon.svg" alt="logo" style={{ width: 30, height: 30, borderRadius: "8px", flexShrink: 0 }} />
+            <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text)", letterSpacing: "-0.01em" }}>Onlytracker</span>
+            <span className="serif-italic" style={{ fontSize: "1.05rem", color: "var(--text-muted)" }}>Morfi</span>
           </Link>
 
           {/* Links solo en desktop */}
