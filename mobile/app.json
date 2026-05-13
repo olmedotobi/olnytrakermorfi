@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Onlytracker Morfi",
+    "slug": "onlytracker-morfi",
+    "version": "1.0.0",
+    "scheme": "onlytracker",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "backgroundColor": "#F9F6F1"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.onlytracker.morfi",
+      "infoPlist": {
+        "NSMotionUsageDescription": "Usamos el acelerómetro para contar tus pasos."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F9F6F1"
+      },
+      "package": "com.onlytracker.morfi",
+      "permissions": ["USE_BIOMETRIC"]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#E8704A",
+          "sounds": []
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Usamos el acelerómetro para contar tus pasos."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

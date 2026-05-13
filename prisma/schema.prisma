@@ -22,6 +22,7 @@ model User {
   workoutSessions      WorkoutSession[]
   stepEntries          StepEntry[]
   passwordResetTokens  PasswordResetToken[]
+  calendarEvents       CalendarEvent[]
 }
 
 model Profile {
@@ -106,6 +107,19 @@ model StepEntry {
   steps  Int    @default(0)
 
   @@unique([userId, date])
+}
+
+model CalendarEvent {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date        String
+  time        String   @default("")
+  title       String
+  description String   @default("")
+  createdAt   DateTime @default(now())
+
+  @@index([userId, date])
 }
 
 model PasswordResetToken {
