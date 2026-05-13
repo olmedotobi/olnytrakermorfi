@@ -42,7 +42,7 @@ async function startServer(dbPath) {
     const prisma = spawn(
       path.join(BIN_DIR, `prisma${BIN_EXT}`),
       ["db", "push", "--schema", path.join(APP_ROOT, "prisma", "schema.sqlite.prisma"), "--skip-generate"],
-      { cwd: APP_ROOT, env }
+      { cwd: APP_ROOT, env, shell: true }
     );
     prisma.on("close", code => {
       if (code === 0) resolve();
@@ -55,7 +55,7 @@ async function startServer(dbPath) {
   nextProcess = spawn(
     path.join(BIN_DIR, `next${BIN_EXT}`),
     ["start", "--port", String(PORT)],
-    { cwd: APP_ROOT, env }
+    { cwd: APP_ROOT, env, shell: true }
   );
 
   nextProcess.on("error", err => console.error("Error servidor:", err));

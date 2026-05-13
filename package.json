@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "desktop:build": "cross-env DATABASE_URL=file:./prisma/temp.db AUTH_SECRET=onlytracker-desktop-local-secret-2026 NEXTAUTH_URL=http://localhost:3131 prisma generate --schema prisma/schema.sqlite.prisma && cross-env DATABASE_URL=file:./prisma/temp.db AUTH_SECRET=onlytracker-desktop-local-secret-2026 NEXTAUTH_URL=http://localhost:3131 next build",
-    "desktop": "electron .",
+    "desktop": "desktop\\launch.cmd",
     "desktop:dist": "npm run desktop:build && electron-builder --config desktop/builder.json"
   },
   "dependencies": {
