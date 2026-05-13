@@ -228,6 +228,16 @@ p { margin: 0; }
   padding: 28px 20px;
 }
 
+/* ── Foods grid ── */
+.foods-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+.foods-detail {
+  /* visible as side panel on desktop */
+}
+
 /* ── Bottom nav (oculto en desktop) ── */
 .app-bottomnav {
   display: none;
@@ -305,8 +315,35 @@ p { margin: 0; }
     grid-template-columns: 1fr;
   }
 
-  /* Tipografía mobile */
+  .foods-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* En mobile la lista de alimentos va arriba, el detalle abajo */
+  .foods-detail {
+    order: 2;
+  }
+
+  /* Cards */
   .card {
     border-radius: 1rem;
+  }
+
+  /* Touch targets más grandes */
+  .btn-primary,
+  .btn-ghost,
+  .app-topbar-salir {
+    min-height: 44px;
+  }
+
+  .input-base {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  /* Stat cards más compactas */
+  .stat-grid .card {
+    padding: 14px 12px !important;
   }
 }

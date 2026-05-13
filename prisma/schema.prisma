@@ -18,6 +18,7 @@ model User {
   foodEntries   FoodEntry[]
   weightEntries WeightEntry[]
   dayNotes      DayNote[]
+  customFoods   CustomFood[]
 }
 
 model Profile {
@@ -66,4 +67,17 @@ model DayNote {
   note      String
 
   @@unique([userId, date])
+}
+
+model CustomFood {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  calories  Float
+  protein   Float
+  carbs     Float
+  fat       Float
+  category  String   @default("Personalizado")
+  createdAt DateTime @default(now())
 }
