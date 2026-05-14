@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, ActivityIndicator, Alert, Image } from "react-native";
 import { router } from "expo-router";
 import { saveSession } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
@@ -44,7 +44,12 @@ export default function RegisterScreen() {
 
   const s = styles(t);
   return (
-    <ScrollView contentContainerStyle={s.container} keyboardShouldPersistTaps="handled">
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: t.bg }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+    >
+    <ScrollView contentContainerStyle={s.container} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
       <Image source={require("../../assets/icon.png")} style={s.logo} />
       <Text style={s.title}>Onlytracker <Text style={s.titleItalic}>Morfi</Text></Text>
       <Text style={s.subtitle}>tu tracker nutricional</Text>
@@ -84,6 +89,7 @@ export default function RegisterScreen() {
         </TouchableOpacity>
       </View>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
