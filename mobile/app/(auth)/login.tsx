@@ -40,7 +40,7 @@ export default function LoginScreen() {
   const handleGoogleInfo = () => {
     Alert.alert(
       "Iniciar sesión con Google",
-      "Para cuentas de Google, usá el código de la web:\n\n1. Abrí la web en tu PC o navegador\n2. Andá a Perfil\n3. Tocá "Generar código para mobile"\n4. Ingresá el código acá abajo",
+      "Para cuentas de Google, usa el codigo de la web:\n\n1. Abri la web en tu PC\n2. Anda a Perfil\n3. Toca Generar codigo para mobile\n4. Ingresa el codigo aca abajo",
       [
         { text: "Cancelar", style: "cancel" },
         { text: "Ingresar código", onPress: () => setShowCodeInput(true) },
