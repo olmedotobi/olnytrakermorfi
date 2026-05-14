@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { apiGet, apiPost } from "@/lib/api";
 import { getUser, clearSession } from "@/lib/auth";
-import { useTheme } from "@/lib/theme";
+import { useTheme, useThemeCtx, PALETTES } from "@/lib/theme";
 
 type ActivityLevel = "sedentary" | "light" | "moderate" | "active" | "very_active";
 type Profile = { height: number; weight: number; age: number; gender: string; targetWeight: number; activityLevel: ActivityLevel };
@@ -28,6 +28,7 @@ function calcBMR(weight: number, height: number, age: number, gender: string) {
 
 export default function ProfileScreen() {
   const t = useTheme();
+  const { paletteId, mode, setPalette, setExplicitMode, useSystemMode, setUseSystemMode } = useThemeCtx();
   const [userName, setUserName] = useState("");
   const [form, setForm] = useState({
     height: "", weight: "", age: "", gender: "male",
@@ -202,6 +203,48 @@ export default function ProfileScreen() {
             {saving ? "Guardando..." : saved ? "Guardado ✓" : "Actualizar perfil"}
           </Text>
         </TouchableOpacity>
+
+        {/* Theme picker */}
+        <View style={s.card}>
+          <Text style={s.cardLabel}>APARIENCIA</Text>
+          <View style={s.modeRow}>
+            {([
+              { key: "light"  as const, label: "☀  Claro" },
+              { key: "dark"   as const, label: "◑  Oscuro" },
+              { key: "system" as const, label: "⚙  Sistema" },
+            ]).map(m => {
+              const active = m.key === "system" ? useSystemMode : (!useSystemMode && mode === m.key);
+              return (
+                <TouchableOpacity
+                  key={m.key}
+                  style={[s.modeBtn, active && { backgroundColor: t.text, borderColor: t.text }]}
+                  onPress={() => m.key === "system" ? setUseSystemMode(true) : setExplicitMode(m.key)}
+                >
+                  <Text style={[s.modeBtnText, { color: active ? t.card : t.muted }]}>{m.label}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <View style={s.paletteGrid}>
+            {PALETTES.map(p => {
+              const sel = p.id === paletteId;
+              return (
+                <TouchableOpacity
+                  key={p.id}
+                  style={[s.paletteItem, sel && { borderColor: t.text, backgroundColor: t.input }]}
+                  onPress={() => setPalette(p.id)}
+                >
+                  <View style={s.swatchRow}>
+                    {p.swatches.map((c, i) => <View key={i} style={[s.swatch, { backgroundColor: c }]} />)}
+                  </View>
+                  <Text style={[s.paletteName, { color: sel ? t.text : t.muted, fontWeight: sel ? "700" : "500" }]} numberOfLines={1}>
+                    {p.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -236,4 +279,12 @@ const styles = (t: ReturnType<typeof useTheme>) => StyleSheet.create({
   goalSub: { fontSize: 13, marginTop: 4 },
   saveBtn: { marginHorizontal: 16, marginTop: 4, borderRadius: 16, padding: 15, alignItems: "center" },
   saveBtnText: { fontWeight: "700", fontSize: 16 },
+  modeRow: { flexDirection: "row", gap: 8, marginBottom: 14 },
+  modeBtn: { flex: 1, paddingVertical: 9, borderRadius: 10, borderWidth: 1.5, borderColor: t.border, alignItems: "center" },
+  modeBtnText: { fontSize: 11, fontWeight: "700" },
+  paletteGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
+  paletteItem: { width: "23%", padding: 8, borderRadius: 12, borderWidth: 1.5, borderColor: t.border, alignItems: "center" },
+  swatchRow: { flexDirection: "row", gap: 3, marginBottom: 5 },
+  swatch: { width: 14, height: 14, borderRadius: 7 },
+  paletteName: { fontSize: 9, textAlign: "center" },
 });
