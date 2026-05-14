@@ -4,6 +4,69 @@ import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { calculateBMR, calculateTDEE, calculateMacros, type ActivityLevel } from "@/lib/calc";
 
+function MobileCodeCard() {
+  const [code, setCode] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const generate = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/mobile-code", { method: "POST" });
+      const data = await res.json();
+      if (data.code) setCode(data.code);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyCode = () => {
+    if (!code) return;
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="card" style={{ padding: "24px", marginTop: "12px" }}>
+      <p className="label" style={{ marginBottom: "4px" }}>APP MÓVIL</p>
+      <h2 className="serif-italic" style={{ fontSize: "1.2rem", color: "var(--text)", marginBottom: "8px", fontWeight: 400 }}>
+        Accedé desde tu celular
+      </h2>
+      <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "16px", lineHeight: 1.5 }}>
+        Generá un código de 6 dígitos para iniciar sesión en la app móvil sin necesitar contraseña. El código dura 5 minutos.
+      </p>
+      {code ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "center" }}>
+          <div style={{
+            letterSpacing: "0.4em", fontSize: "2.4rem", fontWeight: 900, color: "var(--text)",
+            background: "var(--bg-input)", borderRadius: "1rem", padding: "16px 28px",
+            border: "1.5px solid var(--border)", fontVariantNumeric: "tabular-nums",
+          }}>
+            {code}
+          </div>
+          <div style={{ display: "flex", gap: "8px" }}>
+            <button type="button" className="btn-primary" onClick={copyCode}
+              style={{ padding: "10px 20px", fontSize: "0.875rem" }}>
+              {copied ? "✓ Copiado" : "Copiar código"}
+            </button>
+            <button type="button" onClick={generate} disabled={loading}
+              style={{ padding: "10px 20px", fontSize: "0.875rem", borderRadius: "0.75rem", border: "1.5px solid var(--border)", background: "transparent", color: "var(--text)", cursor: "pointer" }}>
+              Nuevo código
+            </button>
+          </div>
+          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Ingresá este código en "Tengo un código" en la app móvil</p>
+        </div>
+      ) : (
+        <button type="button" className="btn-primary" onClick={generate} disabled={loading}
+          style={{ padding: "12px 24px", fontSize: "0.9rem" }}>
+          {loading ? "Generando..." : "Generar código para mobile"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 const ACTIVITY = [
   { value: "sedentary",   label: "Sedentario",  sub: "sin ejercicio" },
   { value: "light",       label: "Ligero",       sub: "1–3 días / semana" },
@@ -128,6 +191,8 @@ function ProfileContent() {
             <button type="submit" className="btn-primary" disabled={loading || saved} style={{ padding: "14px", fontSize: "1rem" }}>
               {saved ? "✓ Guardado" : loading ? "Guardando..." : isSetup ? "Guardar y continuar →" : "Actualizar perfil"}
             </button>
+
+            <MobileCodeCard />
           </div>
 
           {/* Right column */}

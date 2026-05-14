@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import { apiGet, apiPost } from "@/lib/api";
 import { getUser, clearSession } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
@@ -205,9 +206,6 @@ export default function ProfileScreen() {
     </SafeAreaView>
   );
 }
-
-// Imported at runtime only (not tree-shaken from expo-vector-icons)
-import { Ionicons } from "@expo/vector-icons";
 
 const styles = (t: ReturnType<typeof useTheme>) => StyleSheet.create({
   safe: { flex: 1, backgroundColor: t.bg },
